@@ -1,0 +1,370 @@
+.image-box {
+	float: left;
+	cursor: pointer !important;
+	width: 200px;
+	height: 240px;
+	margin: 10px;
+}
+
+.image-box:hover .image-square {
+	box-shadow: 0 0 3px 1px rgba(0,150,0,0.5);
+}
+
+.image-square {
+    box-shadow: 0 0 3px 1px rgba(0,0,0,0.5);
+    background: #111;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+   	-webkit-transform-style: preserve-3d;
+   	-moz-transform-style: preserve-3d;
+   	transform-style: preserve-3d;
+}
+
+.post-image img,
+.image-square img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+   	position: relative;
+   	top: 50%;
+   	transform: translateY(-50%);
+}
+
+.image-label {
+    text-align: center;
+    width: 200px;
+    text-overflow: ellipsis;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    color: #968875;
+}
+
+#Asaph {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 99999;
+	box-sizing: border-box;
+	background: #262626;
+}
+
+#Asaph_Menu {
+    position: relative;
+    height: 35px;
+    background-image: url(../img/wood.png);
+    background-position: top left;
+    background-repeat: repeat;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #16100d;
+}
+
+#Asaph_Menu .logo {
+    float: left;
+    margin: 4px 20px 0 0;
+    font-size: 12px;
+    color: #968875;
+    height: 16px;
+    line-height: 16px;
+}
+
+#Asaph_Images {
+    width: 100%;
+    overflow-y: auto;
+    position: fixed;
+    top: 35px;
+    left: 0;
+    bottom: 0;
+}
+
+#Asaph_Dialog {
+    position: fixed;
+    width: 500px;
+    height: 370px;
+    left: 50%;
+    margin-left: -250px;
+    top: -370px;
+    background: #f9f9f9;
+
+    -webkit-transition: top 250ms;
+    transition: top 250ms;
+}
+
+#Asaph_Dialog.show {
+	top: 0;
+}
+
+#Asaph iframe {
+	width: 100%;
+	height: 370px;
+	border: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.Asaph_Post {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	text-align: left;
+}
+
+body.Asaph_Post {
+  color: #444;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#Asaph_Menu a {
+  float: left;
+	color: #968875 !important;
+  text-decoration: none !important;
+  border: 1px solid #1e1810 !important;
+  margin-right: 2px;
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, .1);
+  height: 16px;
+  line-height: 16px;
+  box-sizing: content-box;
+}
+
+.Asaph_Post a:hover {
+	color: #fff !important;
+	text-decoration: none !important;
+}
+
+
+.Asaph_Post form {
+  float: left;
+  display: block;
+  border-bottom: 1px solid #232323;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+	height: 332px;
+}
+
+.Asaph_Post form ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+body.Asaph_Post.login form ul li {
+  margin-bottom: 15px;
+}
+
+.Asaph_Post input,
+.Asaph_Post textarea {
+    font-family: arial;
+    font-size: 10pt;
+    padding: 1px 3px;
+    border: 1px solid #9e9e9e;
+    background-color: #fff;
+    color: #666;
+    margin-top: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.Asaph_Post textarea {
+  width: 100%;
+  height: 180px;
+  font-size: 11pt;
+  resize: none;
+	margin-bottom: 5px;
+}
+
+.Asaph_Post .post.image.upload textarea {
+	height: 130px;
+}
+
+#quote {
+    font-family: Georgia, serif;
+    font-size: 12pt;
+    text-align: center;
+    color: black;
+    line-height: 140%;
+    padding: 10px;
+    font-style: italic;
+}
+
+.Asaph_Post input {
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 180%;
+    font-size: 11pt;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+}
+
+.Asaph_Post h1 {
+    font-size: 300%;
+    font-weight: bold;
+    color: #444;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-150%);
+}
+
+.Asaph_Post div.warn {
+	background-color: #fff6df;
+	padding: 0.3em;
+	margin-right: 10px;
+	border: 1px solid #fdc689;
+}
+
+.Asaph_Post .hidden {
+	display: none;
+}
+
+.Asaph_Post .post-image {
+    position: relative;
+    background-color: #444;
+    width: 140px;
+    height: 140px;
+    float: left;
+    margin-right: 15px;
+    background-position: center;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.Asaph_Post .post-form {
+  width: 315px;
+  float: left;
+}
+
+.Asaph_Post .post-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 39px;
+  background-image: url(../img//wood-bright.png);
+  background-position: top left;
+  background-repeat: repeat-x;
+  border-top: 1px solid #80755f;
+  text-align: right;
+  padding: 7px 100px 0 0;
+  box-sizing: border-box;
+}
+
+.Asaph_Post .post-footer button,
+#close-dialog {
+  border: 1px solid #221b15;
+  height: 23px;
+  width: 78px;
+  outline: none;
+  cursor: pointer;
+}
+
+.Asaph_Post .post-footer .well {
+    float: left;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 3px;
+    padding: 0 10px;
+    height: 26px;
+    margin-left: 15px;
+    margin-top: -1px;
+}
+
+.Asaph_Post .post-footer .well label {
+	color: #968875;
+  float: left;
+  height: 26px;
+  line-height: 26px;
+  margin-right: 10px;
+}
+
+.Asaph_Post .post-footer .well label input {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 23px;
+    margin-top: 7px;
+}
+
+#close-dialog {
+    position: absolute;
+    bottom: 8px;
+    right: 15px;
+    margin: 0;
+    font-weight: normal;
+    padding: 0;
+		background: #a83737;
+		color: #fff;
+}
+
+select {
+    float: right;
+    margin-top: 5px;
+    width: 315px;
+    height: 30px;
+    border: 1px solid #9e9e9e;
+    color: #666;
+    font-size: 14px;
+}
+
+.post.story .post-form,
+.post.quote .post-form,
+.post.image.upload .post-form {
+  width: 100%;
+}
+
+.post-tags {
+	width: 315px;
+	float: right;
+	margin-bottom: 5px;
+}
+
+div.tagsinput {
+	box-sizing: border-box;
+	border: 1px solid #9e9e9e;
+}
+
+div.tagsinput input {
+	height: 27px;
+}
+
+.Asaph_Post .post-footer button.add {
+	background: #7ca837;
+	color: #fff;
+}
+
+.Asaph_Post input.upload {
+	font-size: 12px;
+	line-height: 100%;
+	padding: 10px;
+}

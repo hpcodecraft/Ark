@@ -1,0 +1,6 @@
+config/*
+!config/example.com.php
+data/
+tinymce/
+.DS_Store
+.htaccess.dev
