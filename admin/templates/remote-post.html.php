@@ -33,7 +33,7 @@
     	background-position:center;
     	border-top-left-radius: 10px;
     	margin-bottom:0px;
-    	" src="<?php echo Asaph_Config::$absolutePath;?>templates/whiteout/playbutton.svg"/>
+    	" src="<?php echo Asaph_Config::$absolutePath;?>templates/ark/playbutton.svg"/>
   <?php } ?>
 
 	<?php if($_GET['type'] == 'image' && $_GET['image'] == 'upload'): ?>
