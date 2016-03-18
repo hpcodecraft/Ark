@@ -134,19 +134,20 @@ select {
 }
 
 .collections {
-    background: #f9f9f9;
-    position: absolute;
-    top: 35px;
-    left: 0;
-    bottom: 35px;
-    width: 200px;
+  background: #f9f9f9;
+  bottom: 35px;
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  top: 35px;
+  width: 200px;
 }
 
 .collections h2 {
   color: #7ca935;
-  text-transform: uppercase;
   font-size: 1em;
   margin-left: 15px;
+  text-transform: uppercase;
 }
 
 .collections .collection {
