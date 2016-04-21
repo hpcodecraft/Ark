@@ -54,6 +54,10 @@ else {
 				$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'], $_POST['description'], $_public, $_POST['collection'], $_POST['image_url'], $_POST['tags'], $_nsfw );
 				break;
 
+      case 'custom-link':
+				$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'], $_POST['description'], $_public, $_POST['collection'], "null", $_POST['tags'], $_nsfw ); // TODO "null" as string sucks, fix that later
+				break;
+
 			case 'image':
 
 				if($_POST['source'] == 'upload') {

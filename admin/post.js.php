@@ -1,11 +1,10 @@
 <?php
 require_once( '../config/'.$_SERVER['SERVER_NAME'].'.php' );
-//require_once( '../lib/asaph_config.class.php' );
 header( 'Content-type: text/javascript; charset=utf-8' );
 ?>
-function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
+function ArkBookmarklet( postURL, baseURL ) {
 	this.postURL = postURL;
-	this.stylesheet = stylesheet;
+	this.stylesheet = baseURL + 'admin/templates/css/bookmarklet.css';
 	this.baseURL = baseURL;
 	this.visible = false;
 	this.bookmarklet = null;
@@ -24,6 +23,14 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		css.href = this.stylesheet;
 
 		document.querySelector('head').appendChild(css);
+
+    css = document.createElement('link');
+    css.type = 'text/css';
+    css.rel = 'stylesheet';
+    css.href = "https://fonts.googleapis.com/css?family=Cookie";
+
+    document.querySelector('head').appendChild(css);
+
 
 		//if( document.getElementsByTagName("head").item(0) ) {
 		//	document.getElementsByTagName("head").item(0).appendChild( css );
@@ -49,11 +56,17 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		video_height = getData(metaData,"og:video:height");
 
 		var menuBar = document.createElement('div');
-		menuBar.id = 'Asaph_Menu';
+		menuBar.id = 'ark-bookmarklet-menu';
 
 		var logo = document.createElement('h3');
 		logo.className = 'logo';
+    logo.onclick = function() {
+      window.open(that.baseURL);
+    };
 		logo.appendChild(document.createTextNode("Ark"));
+
+    // var thisPage = document.createElement('span');
+    // thisPage.appendChild(document.createTextNode("This page"));
 
 		var postSiteButton = document.createElement('a');
 		postSiteButton.appendChild( document.createTextNode("save this page") );
@@ -64,18 +77,18 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 				'url': document.location.href,
 				'xhrLocation': document.location.href.replace(/#.*$/,''),
 				'description' : description || document.location.href,
-				'image': image || null,
+				'image': image || null,
 			});
 			postActiveButton.style.color="#666";
 			postActiveButton = postSiteButton;
 			postActiveButton.style.color="#00adef";
-		}
+		};
 
 		postSiteButton.href = '#';
 		postActiveButton = postSiteButton;
 
 		var postQuoteButton = document.createElement('a');
-		postQuoteButton.appendChild( document.createTextNode("post quote") );
+		postQuoteButton.appendChild( document.createTextNode("save a quote") );
 		postQuoteButton.onclick = function()
 		{
 			that.loadIFrame({
@@ -93,6 +106,9 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		};
 		postQuoteButton.href = '#';
 
+    var yourArk = document.createElement('span');
+    yourArk.appendChild(document.createTextNode("|"));
+
 		var postStoryButton = document.createElement('a');
 		postStoryButton.appendChild( document.createTextNode("post story") );
 		postStoryButton.onclick = function() {
@@ -105,8 +121,25 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 			postActiveButton.style.color="#666";
 			postActiveButton = postSiteButton;
 			postActiveButton.style.color="#00adef";
-		}
+		};
 		postStoryButton.href = '#';
+
+    var postUrlButton = document.createElement('a');
+		postUrlButton.appendChild( document.createTextNode("post URL") );
+		postUrlButton.onclick = function() {
+      that.loadIFrame({
+				'type': 'custom-link',
+				'title': '',
+				'url': '',
+				'xhrLocation': document.location.href.replace(/#.*$/,''),
+				'description' : '',
+				'image': '',
+			});
+			postActiveButton.style.color = "#666";
+			postActiveButton = postSiteButton;
+			postActiveButton.style.color = "#00adef";
+		};
+		postUrlButton.href = '#';
 
 		var uploadImageButton = document.createElement('a');
 		uploadImageButton.appendChild( document.createTextNode("upload image") );
@@ -122,14 +155,14 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 			postActiveButton.style.color="#666";
 			postActiveButton = postSiteButton;
 			postActiveButton.style.color="#00adef";
-		}
+		};
 		uploadImageButton.href = '#';
 
 
 
 		var closeButton = document.createElement('a');
 		closeButton.appendChild( document.createTextNode("close") );
-		closeButton.onclick = function() { return that.toggle(); }
+		closeButton.onclick = function() { return that.toggle(); };
 		closeButton.href = '#';
 
 		// var arkButton = document.createElement('a');
@@ -138,34 +171,35 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		// arkButton.href = this.baseURL;
 
 		menuBar.appendChild( logo );
+    // menuBar.appendChild( thisPage );
 		menuBar.appendChild( postSiteButton );
 		menuBar.appendChild( postQuoteButton );
+    menuBar.appendChild( yourArk );
 		menuBar.appendChild( postStoryButton );
+    menuBar.appendChild( postUrlButton );
 		menuBar.appendChild( uploadImageButton );
 		menuBar.appendChild( closeButton );
 		// menuBar.appendChild( arkButton );
 
 		this.bookmarklet = document.createElement('div');
-		this.bookmarklet.id = 'Asaph';
-		this.bookmarklet.className = 'Asaph_Post';
+		this.bookmarklet.id = 'ark-bookmarklet';
 		this.bookmarklet.appendChild( menuBar );
-
 
 		var closeDialog = document.createElement('button');
 		closeDialog.appendChild( document.createTextNode("cancel") );
-		closeDialog.id = 'close-dialog';
+		closeDialog.id = 'ark-bookmarklet-close';
 		closeDialog.onclick = function() {
 			that.dialog.classList.remove('show');
 			return false;
-		}
+		};
 
 		closeDialog.href = '#';
 
 		this.dialog = document.createElement('div');
-		this.dialog.id = 'Asaph_Dialog';
+		this.dialog.id = 'ark-bookmarklet-dialog';
 
 		this.images = document.createElement('div');
-		this.images.id = 'Asaph_Images';
+		this.images.id = 'ark-bookmarklet-images';
 
 		this.iframe = document.createElement('iframe');
 		this.iframe.src = 'about:blank';
@@ -187,19 +221,6 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 				'xhrLocation': document.location.href.replace(/#.*$/,''),
 				'width' :width,
 				'height':height
-			});
-			postActiveButton.style.color="#666";
-			postActiveButton = postImageButton;
-			postActiveButton.style.color="#00adef";
-		}
-		else if(type=="image")
-		{
-			this.loadIFrame({
-				'title': title,
-				'image' : image,
-				'description' : description,
-				'source' : url,
-				'xhrLocation': document.location.href.replace(/#.*$/,'')
 			});
 			postActiveButton.style.color="#666";
 			postActiveButton = postImageButton;
@@ -235,33 +256,10 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 			});
 			postActiveButton.style.color="#666";
 		}
-		else if(image!="")
-		{
-			//fall back on posting image
-			this.loadIFrame({
-				'title': title,
-				'image' : image,
-				'description' : description,
-				'source' : url,
-				'xhrLocation': document.location.href.replace(/#.*$/,'')
-			});
-			postActiveButton.style.color="#666";
-			postActiveButton = postImageButton;
-			postActiveButton.style.color="#00adef";
-		}
-
-		else
-		{
-			//post a plain entry
-			//TODO
-			//alert("not yet supported");
-		}
-		// TODO: Link & Quote
 		*/
 
-
 		document.body.appendChild( this.bookmarklet );
-	}
+	};
 
 	function getData(array,key) {
 		for(i = 0;i<array.length;i++)
@@ -274,15 +272,14 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		return false;
 	}
 
-
 	this.loadIFrame = function( params ) {
 		this.dialog.classList.add('show');
 		var reqUrl = this.postURL + '?nocache=' + parseInt(Math.random()*10000);
-		for( p in params ) {
+		for( var p in params ) {
 			reqUrl += '&' + p + '=' + encodeURIComponent( params[p] );
 		}
 		this.iframe.src = reqUrl;
-	}
+	};
 
 	this.checkSuccess = function() {
 		if( document.location.href.match(/#post-success/) ) {
@@ -293,7 +290,7 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 			document.location.href = document.location.href.replace(/#.*$/, '#');
 			this.dialog.classList.remove('show');
 		}
-	}
+	};
 
 	this.overflow = null;
 
@@ -305,37 +302,36 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		var that = this;
 		var images = document.getElementsByTagName('img');
 
+    var imageLoadHandler = function() {
+      var imgBox = document.createElement('div');
+      imgBox.className = 'image-box';
+
+      var imgSquare = document.createElement('div');
+      imgSquare.className = 'image-square';
+      imgSquare.appendChild(this);
+      imgBox.appendChild(imgSquare);
+
+      var imgLabel = document.createElement('label');
+      imgLabel.className = 'image-label';
+
+      var title = img.getAttribute('alt') || img.getAttribute('title') || '';
+      imgLabel.appendChild(document.createTextNode(title));
+
+      imgBox.appendChild(imgLabel);
+      imgBox.onclick = imageClickHandler(this, title);
+
+      that.images.appendChild(imgBox);
+    };
+
+    var imageClickHandler = function(img, title) {
+      return function() { that.selectImage(img, title); };
+    };
+
 		for( var i=0; i<images.length; i++ ) {
 			var img = images[i];
-
-			//if( img && img.src && img.src.match(/(space|blank)[^\/]*\.gif$/i) ) {
-
 			if( img && img.src && img.width > this.minImageSize && img.height > this.minImageSize) {
-
 				var cloneImg = new Image();
-				cloneImg.onload = function() {
-					var imgBox = document.createElement('div');
-					imgBox.className = 'image-box';
-
-					var imgSquare = document.createElement('div');
-					imgSquare.className = 'image-square';
-					imgSquare.appendChild(this);
-					imgBox.appendChild(imgSquare);
-
-					var imgLabel = document.createElement('label');
-					imgLabel.className = 'image-label';
-
-					var title = img.getAttribute('alt') || img.getAttribute('title') || '';
-					imgLabel.appendChild(document.createTextNode(title));
-					imgBox.appendChild(imgLabel);
-
-					imgBox.onclick = function(img, title) {
-						return function() { that.selectImage(img, title); }
-					}(this, title);
-
-					that.images.appendChild(imgBox);
-				}
-
+				cloneImg.onload = imageLoadHandler;
 				cloneImg.src = img.src;
 			}
 		}
@@ -343,7 +339,7 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		this.visible = true;
 		this.checkSuccessInterval = setInterval( function() { that.checkSuccess(); }, 500 );
 		this.bookmarklet.style.display = 'block';
-	}
+	};
 
 	this.selectImage = function(img, title) {
 		that.loadIFrame({
@@ -354,7 +350,7 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 			'source' : document.location.href,
 			'xhrLocation': document.location.href.replace(/#.*$/,'')
 		});
-	}
+	};
 
 	this.hide = function() {
 		this.visible = false;
@@ -369,7 +365,7 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 		}
 
 		document.body.style.overflow = this.overflow;
-	}
+	};
 
 	this.toggle = function() {
 		if( !this.visible ) {
@@ -378,17 +374,15 @@ function Asaph_RemotePost( postURL, stylesheet, baseURL ) {
 			this.hide();
 		}
 		return false;
-	}
-
+	};
 
 	this.create();
 }
 
-if( typeof(Asaph_Instance) == 'undefined' )  {
-	var Asaph_Instance = new Asaph_RemotePost(
+if( typeof(ArkBookmarkletInstance) == 'undefined' )  {
+	var ArkBookmarkletInstance = new ArkBookmarklet(
 		'<?php echo ASAPH_POST_PHP; ?>',
-		'<?php echo ASAPH_POST_CSS; ?>',
 		'<?php echo ASAPH_BASE_URL; ?>'
 	);
 }
-Asaph_Instance.toggle();
+ArkBookmarkletInstance.toggle();

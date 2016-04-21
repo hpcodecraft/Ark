@@ -58,10 +58,29 @@
 					<input type="text" placeholder="Title" id="title" name="title" value="<?php printReqVar('title'); ?>" />
 				</li>
 				<li>
-					<textarea id="description" type="text" name="description"><?php printReqVar('description'); ?></textarea>
+					<textarea id="description" type="text" name="description" placeholder="Description"><?php printReqVar('description'); ?></textarea>
 				</li>
 			</ul>
 		</div>
+
+
+
+    <?php elseif($_GET['type'] == 'custom-link'): ?>
+			<div class="post custom-link">
+        <input type="hidden" name="url" value="<?php printReqVar('url'); ?>"/>
+
+  			<ul class="post-form">
+          <li>
+  					<input type="text" placeholder="URL" id="url" name="url" value="<?php printReqVar('url'); ?>" />
+  				</li>
+  				<li>
+  					<input type="text" placeholder="Title" id="title" name="title" value="<?php printReqVar('title'); ?>" />
+  				</li>
+  				<li>
+  					<textarea id="description" type="text" name="description" placeholder="Description"></textarea>
+  				</li>
+  			</ul>
+  		</div>
 
 		<?php elseif($_GET['type'] == 'image'):
 			$image = $_GET['image'];
@@ -85,7 +104,7 @@
 					<input type="text" placeholder="Title" id="title" name="title" value="<?php printReqVar('title'); ?>" />
 				</li>
 				<li>
-					<textarea id="description" type="text" name="description">
+					<textarea id="description" type="text" name="description" placeholder="Description">
 						<?php printReqVar('description'); ?>
 					</textarea>
 				</li>
@@ -113,7 +132,7 @@
 					<input type="text" placeholder="Title" id="title" name="title" value="<?php printReqVar('title'); ?>" />
 				</li>
 				<li>
-					<textarea id="description" type="text" name="description"><?php printReqVar('description'); ?></textarea>
+					<textarea id="description" type="text" name="description" placeholder="Description"><?php printReqVar('description'); ?></textarea>
 				</li>
 			</ul>
 		</div>
@@ -140,7 +159,7 @@
 					<input type="hidden" name="source" value="<?php printReqVar('source'); ?>"/>
 				</dd>
 				<!-- <dt>Description:</dt> -->
-				<dd><textarea id="description" type="text" name="description"><?php printReqVar('description'); ?></textarea></dd>
+				<dd><textarea id="description" type="text" name="description" placeholder="Description"><?php printReqVar('description'); ?></textarea></dd>
 
 				<input type="hidden" name="height" value="<?php printReqVar('height'); ?>"/>
 				<input type="hidden" name="width" value="<?php printReqVar('width'); ?>"/>
