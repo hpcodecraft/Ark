@@ -2,10 +2,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin: Ark</title>
   <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="<?php echo Asaph_Config::$absolutePath; ?>admin/templates/css/admin.css" />
-	<link rel="Shortcut Icon" href="<?php echo Asaph_Config::$absolutePath; ?>admin/templates/asaph.ico" />
+	<link rel="shortcut icon" href="<?php echo Asaph_Config::$absolutePath; ?>admin/templates/img/favicon.ico" />
 </head>
 <body>
 

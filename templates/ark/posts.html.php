@@ -50,7 +50,6 @@ function renderPagination($pages) {
 <html class="no-js"> <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Ark</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,9 +59,8 @@ function renderPagination($pages) {
 		<link href='https://fonts.googleapis.com/css?family=Cookie|Source+Sans+Pro:400,300,200,200italic,300italic,400italic,600,600italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="<?php echo Asaph_Config::$absolutePath; ?>templates/ark/css/normalize.css">
 		<link rel="stylesheet" href="<?php echo Asaph_Config::$absolutePath; ?>templates/ark/css/responsive.css">
+    <link rel="shortcut icon" href="<?php echo Asaph_Config::$absolutePath; ?>templates/ark/img/favicon.ico" />
 		<script src="<?php echo Asaph_Config::$absolutePath;?>templates/ark/js/vendor/modernizr-2.6.2.min.js"></script>
-
-
 		<meta property="og:site_name" content="ark.hpcodecraft.me"/>
 		<?php if(!isset($pages)):
 			$p = $posts[0];

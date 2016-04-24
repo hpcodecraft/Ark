@@ -199,7 +199,7 @@ $(function() {
 
   		if(post.type == 'url') {
   			urlLink = '<a class="url-link" href="'+ post.source +'" target="_blank">';
-  			if(post.image_url != null) urlLink += '<img src="'+ post.image_url +'" />';
+  			if(post.image_url !== null) urlLink += '<img src="'+ post.image_url +'" />';
   			urlLink+= '</a>';
   		}
 
@@ -208,24 +208,23 @@ $(function() {
         tags.push(t.tag);
       });
 
-      var html = '<div class="post" '
-        + 'data-id="' + post.id + '" '
-        + 'data-type="' + post.type + '" '
-        + 'data-title="' + title + '" '
-        + 'data-created="' + post.created + '" '
-        + 'data-source="' + post.source + '" '
-        + 'data-tags="' + tags.join(',') + '" '
-        + imageAttr
-        + quoteAttr
-        + '>'
-        + '<div class="post-image">'
-        + urlLink;
+      var html = '<div class="post" ' +
+          'data-id="' + post.id + '" ' +
+          'data-type="' + post.type + '" ' +
+          'data-title="' + title + '" ' +
+          'data-created="' + post.created + '" ' +
+          'data-source="' + post.source + '" ' +
+          'data-tags="' + tags.join(',') + '" ' +
+          imageAttr +
+          quoteAttr + '>' +
+            '<div class="post-image">' +
+          urlLink;
 
-          html
-          += '<div class="post-actions">'
-              + '<span class="post-type">'+ post.type.toUpperCase() +'</span>'
-              + '<button type="button" class="edit"></button>'
-          + '</div>';
+          html +=
+            '<div class="post-actions">' +
+              '<span class="post-type">'+ post.type.toUpperCase() +'</span>' +
+              '<button type="button" class="edit"></button>' +
+          '</div>';
 
           if(post.type == 'image')
             html += '<img src="'+ post.image.thumb +'" alt="" />';
@@ -234,17 +233,17 @@ $(function() {
           else if(post.type == 'quote')
             html += '<em>'+ post.quote.quote.split('\n').join('<br>') +'</em>';
 
-        html
-        += '</div>'
-          + '<div class="post-title">'
-            + '<em>' + title2 + '</em>'
-          + '</div>'
-        + '</div>';
+        html +=
+          '</div>' +
+            '<div class="post-title">' +
+            '<em>' + title2 + '</em>' +
+          '</div>' +
+        '</div>';
 
         $('#search-results').append($(html));
     });
 
-    if(json.posts.length == 0) {
+    if(json.posts.length === 0) {
       var html = '<h2>Nothing found :(</h2>';
       $('#search-results').append($(html));
     }
