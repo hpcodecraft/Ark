@@ -162,7 +162,7 @@ function renderPagination($pages) {
 		<![endif]-->
 
 		<div class="header">
-			<h1><a href="<?php echo ASAPH_LINK_PREFIX ?>">Ark</a></h1>
+			<h1 class="logo"><a href="<?php echo ASAPH_LINK_PREFIX ?>">Ark</a></h1>
 		</div>
 
 		<?=renderPagination($pages)?>
