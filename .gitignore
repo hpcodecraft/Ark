@@ -1,6 +1,5 @@
 config/*
 !config/example.com.php
-data/
-tinymce/
-.DS_Store
+data
+resources
 .htaccess.dev
