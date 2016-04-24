@@ -18,7 +18,7 @@ class Asaph_Config {
 
   // Templates
   public static $templates = array(
-    'posts' => 'templates/ark/index.html.php',
+    'posts' => 'templates/ark/posts.html.php',
     'about' => 'templates/ark/about.html.php',
     'feed' => 'templates/rss.xml.php'
   );

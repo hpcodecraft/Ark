@@ -169,14 +169,19 @@ function renderPagination($pages) {
 
 		<ul class="posts">
 			<?php foreach( $posts as $p ): ?>
-				<li>
+				<li class="post">
+          <div class="type">
+            <?php echo strtoupper($p['type']); ?>
+          </div>
 
 					<?php if($p['type'] == 'url'): ?>
 						<a class="content" href="<?php echo $p['source'];?>" target="_blank">
 					<?php endif; ?>
 
 					<?php if($p['type'] == 'image'): ?>
-						<img class="content" src="<?php echo $p['image']['image']; ?>" />
+            <div class="image-container">
+						  <img src="<?php echo $p['image']['image']; ?>" />
+            </div>
 
 					<?php elseif($p['type'] == 'video'): ?>
 						<embed src="<?php echo $p['video']['src']; ?>" type="<?php echo $p['video']['type'];?>" width="612" height="<?php echo ($p['video']['height']*612/$p['video']['width']);?>" />
@@ -188,7 +193,9 @@ function renderPagination($pages) {
 						</quote>
 
 					<?php elseif($p['type'] == 'url' && $p['image_url'] != 'null'): ?>
-						<img src="<?php echo $p['image_url']; ?>" />
+						<div class="image-container">
+              <img src="<?php echo $p['image_url']; ?>" />
+            </div>
 					<?php endif; ?>
 
 

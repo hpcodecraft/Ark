@@ -125,17 +125,75 @@ h2 {
   margin: 0 auto .5em auto;
 }
 
-ul {
-	width: 100%;
-	margin: 40px 0px 0px 0px;
-	padding: 0px;
+.posts {
+  margin: 40px auto 0px auto;
+  padding: 0px;
+  width: 500px;
+  position: relative;
+  z-index: 0;
 }
 
-li {
-	display:block;
-	overflow:auto;
-	background-color: white;
-	padding:20px 0px;
+.post {
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
+  display: block;
+  padding: 1.5em 0;
+  position: relative;
+}
+
+.post:last-of-type {
+  border-bottom: none;
+}
+
+.post .type {
+  background: #7ca837;
+  color: #f0f0f0;
+  font-size: 0.8em;
+  float: left;
+  margin-left: -100px;
+  width: 50px;
+  padding: 0 10px;
+  position: relative;
+  border-radius: 2px 0 0 2px;
+  height: 26px;
+  line-height: 26px;
+  margin-top: 1em;
+}
+
+.post .type:after {
+  content: "";
+  position: absolute;
+  right: -13px;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 13px solid #7ca837;
+  top: 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.post .image-container {
+  width: 100%;
+  text-align: center;
+}
+
+.post .image-container img {
+  max-width: 100%;
+}
+
+.post .footer {
+	padding: 0.5em 1em;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 0.9em;
+}
+
+.post .footer a {
+	color: #444;
+	text-decoration: none;
+}
+
+.post .footer a:hover {
+	text-decoration: underline;
 }
 
 li p {
@@ -151,25 +209,8 @@ li > p:nth-of-type(1) {
 	font-weight: 500;
 }
 
-li div.footer {
-	margin: 5px auto 0px auto;
-	padding-left: 20px;
-	width: 500px;
-	box-sizing: border-box;
-	text-align: right;
-}
-
-li div.footer a {
-	color: #444;
-	text-decoration: none;
-}
-
-li div.footer a:hover {
-	text-decoration: underline;
-}
-
 li > img, li > embed, li > quote {
-	margin: 0px auto 20px auto;
+	margin: 0 auto;
 	display: block;
 }
 
@@ -195,22 +236,23 @@ quote[length='long'] {
 }
 
 .navigation {
-	font-size: 120%;
-	font-weight: 500;
+	font-size: 1.5em;
+	font-weight: 400;
 	text-align:center;
 	line-height: 200%;
-	max-width: 500px;
+	width: 500px;
 	margin: 0 auto;
 	position: relative;
+	z-index: 1;
 }
 
 .navigation a {
 	text-decoration: none;
 	vertical-align: baseline;
-	margin: 0 2px;
 	display: inline-block;
 	color: #7ca837;
-	min-width: 20px;
+	min-width: 1em;
+	padding: 0 0.5em;
 }
 
 .navigation a:hover {
@@ -231,13 +273,15 @@ quote[length='long'] {
 
 .content {
 	max-width: 500px;
-	margin: 0px auto 20px auto;
 	display: block;
+	padding: 1em;
 }
 
 .content img {
 	max-width: 500px;
 	margin-bottom: 20px;
+	/* margin-left: auto; */
+	/* margin-right: auto; */
 }
 
 img.fixedSize {
@@ -385,7 +429,7 @@ img.fixedSize:after {
 		hyphens: auto;
 	}
 
-	li div.footer {
+	.post .footer {
 		margin: 5px auto 0px auto;
 		padding-left: 20px;
 		padding-right: 10px;
@@ -497,7 +541,7 @@ img.fixedSize:after {
 	top: 2em;
 	border: 1px solid #7ca837;
 	background: #fff;
-	border-radius: 3px;
+	border-radius: 2px;
 	box-sizing: border-box;
 	padding: 10px;
 }
