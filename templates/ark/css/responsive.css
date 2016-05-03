@@ -118,9 +118,34 @@ a, a:hover, a:active, a:visited {
 }
 
 h2 {
-  font-size: 1.1em;
+  font-size: 1.2em;
   max-width: 500px;
   margin: 0 auto .5em auto;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1em;
+  max-width: 500px;
+  margin: 1em auto .5em auto;
+}
+
+.featured-collections {
+  list-style-type: none;
+  margin: 2em auto 4em auto;
+  max-width: 500px;
+  padding: 0px;
+  position: relative;
+  text-align: center;
+  z-index: 0;
+}
+
+.featured-collections .collection {
+  display:  inline-block;
+  width: 125px;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #f0f0f0;
 }
 
 .posts {

@@ -163,6 +163,18 @@ function renderPagination($pages) {
 			<h1 class="logo"><a href="<?php echo ASAPH_LINK_PREFIX ?>">Ark</a></h1>
 		</div>
 
+    <? if(count($collections) > 0): ?>
+    <h2>featured collections</h2>
+    <ul class="featured-collections">
+      <? foreach ($collections as $c): ?>
+        <li class="collection">
+          <!--<pre><?= print_r($asaph->getRandomCollectionCover($c['id'])) ?></pre>-->
+          <a href="<?= Asaph_Config::$absolutePath ?>collection/<?= $c['id'] ?>"><?= $c['name'] ?></a>
+        </li>
+      <? endforeach; ?>
+    </ul>
+    <? endif; ?>
+
 		<?=renderPagination($pages)?>
 
 		<ul class="posts">
@@ -198,7 +210,7 @@ function renderPagination($pages) {
 
 
 					<?php if(strlen($p['title']) > 0): ?>
-					<h2><?php echo $p['title']; ?></h2>
+					<h3><?php echo $p['title']; ?></h3>
 					<?php endif; ?>
 
 					<?php if(strlen($p['description']) > 0): ?>

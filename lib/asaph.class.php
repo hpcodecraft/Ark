@@ -126,6 +126,31 @@ class Asaph {
 		return $pages;
 	}
 
+  public function getFeaturedCollections() {
+    $collections = $this->db->query(
+			'SELECT SQL_CALC_FOUND_ROWS id, name
+			FROM
+				'.ASAPH_TABLE_COLLECTIONS.'
+			WHERE featured=1'.$nsfw_query.'
+			ORDER BY name ASC'
+		);
+
+    return $collections;
+  }
+
+  public function getRandomCollectionCover($collection_id) {
+    $cover = $this->db->query(
+      'SELECT UNIX_TIMESTAMP(p.created) as created,
+      p.id, i.thumb FROM '.ASAPH_TABLE_POSTS.' p
+      LEFT JOIN '.ASAPH_TABLE_IMAGES.' i on i.id = p.image
+      WHERE p.collection = :1 AND p.image IS NOT NULL
+      ORDER BY RAND() LIMIT 1',
+      $collection_id
+    );
+
+    return $cover;
+  }
+
 	protected function queryImage($image,$datePath)
 	{
 		$query = 'SELECT SQL_CALC_FOUND_ROWS
