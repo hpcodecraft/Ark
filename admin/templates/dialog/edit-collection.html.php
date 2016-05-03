@@ -9,6 +9,10 @@
       </li>
       <li class="well">
         <label>
+          <input type="checkbox" name="featured" <?php if($collection['featured'] == 1) echo 'checked ' ?>/>
+          featured
+        </label>
+        <label>
           <input type="checkbox" name="nsfw" <?php if($collection['nsfw'] == 1) echo 'checked ' ?>/>
           nsfw
         </label>

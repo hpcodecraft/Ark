@@ -32,8 +32,10 @@ if(isset($_POST['action'])) {
       }
       else {
         $nsfw = 0;
+        $featured = 0;
         if(isset($_POST['nsfw']) && $_POST['nsfw'] == 'on') $nsfw = 1;
-        $status = $asaphAdmin->updateCollection( $_POST['id'], $_POST['name'], $nsfw );
+        if(isset($_POST['featured']) && $_POST['featured'] == 'on') $featured = 1;
+        $status = $asaphAdmin->updateCollection( $_POST['id'], $_POST['name'], $nsfw, $featured );
       }
       break;
 

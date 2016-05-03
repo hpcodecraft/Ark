@@ -177,7 +177,7 @@ class Asaph_Admin extends Asaph {
 			$nsfw_query = " WHERE nsfw=0 ";
 		}
 
-		$collections = $this->db->query( 'SELECT id, name FROM '.ASAPH_TABLE_COLLECTIONS.$nsfw_query.' ORDER BY name ASC' );
+		$collections = $this->db->query( 'SELECT id, name, nsfw, featured FROM '.ASAPH_TABLE_COLLECTIONS.$nsfw_query.' ORDER BY name ASC' );
 		foreach( array_keys($collections) as $i ) {
 			$collections[$i]['name'] = htmlspecialchars( $collections[$i]['name'] );
 		}
@@ -185,7 +185,7 @@ class Asaph_Admin extends Asaph {
 	}
 
 	public function getCollection( $id ) {
-		$collection = $this->db->getRow( 'SELECT id, name, nsfw FROM '.ASAPH_TABLE_COLLECTIONS.' WHERE id=:1', $id );
+		$collection = $this->db->getRow( 'SELECT id, name, nsfw, featured FROM '.ASAPH_TABLE_COLLECTIONS.' WHERE id=:1', $id );
 		return $collection;
 	}
 
@@ -203,13 +203,14 @@ class Asaph_Admin extends Asaph {
 		return true;
 	}
 
-	public function updateCollection( $id, $name, $nsfw ) {
+	public function updateCollection( $id, $name, $nsfw, $featured ) {
 		if( empty($name) ) {
 			return 'collectionname-empty';
 		}
 		$data = array(
 			'name' => $name,
 			'nsfw' => $nsfw,
+      'featured' => $featured,
 		);
 
 		$this->db->updateRow(

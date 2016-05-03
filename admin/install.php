@@ -14,7 +14,8 @@ $createTablesSQL = array(
 'CREATE TABLE `asaph_collections` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-	`nsfw` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
+	`nsfw` TINYINT(1) UNSIGNED NOT NULL DEFAULT \'0\',
+  `featured` TINYINT(1) UNSIGNED NOT NULL DEFAULT \'0\'
   PRIMARY KEY (`id`),
 	INDEX (`nsfw`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;',
