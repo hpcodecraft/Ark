@@ -2,7 +2,10 @@
 //dl("tidy.so");
 ob_start();
 
-function renderPagination($pages) {
+function renderPagination($mode, $pages) {
+
+  if($mode !== 'blog') return '';
+
 	$html = '';
 
 	if(isset($pages)) {
@@ -182,7 +185,12 @@ function renderPagination($pages) {
     </ul>
     <? endif; ?>
 
-		<?=renderPagination($pages)?>
+
+    <? if($display_mode == 'collection'): ?>
+      <h2>Collection "<?= $collection_name ?>"</h2>
+    <? endif; ?>
+
+		<?=renderPagination($display_mode, $pages)?>
 
 		<ul class="posts">
 			<?php foreach( $posts as $p ): ?>
@@ -241,7 +249,7 @@ function renderPagination($pages) {
 
 		</ul>
 
-		<?=renderPagination($pages)?>
+		<?=renderPagination($display_mode, $pages)?>
 
 		<div class="imprint">
 			This micro blog is powered by <a href="https://github.com/hpcodecraft/Ark">Ark</a>
@@ -259,7 +267,7 @@ function renderPagination($pages) {
 	//echo $html;
 	echo $clean;*/
 	// Specify configuration
-	$config = array('indent' => true, 'new-blocklevel-tags' => 'quote', 'vertical-space' => false, 'wrap' => 0);
+	//$config = array('indent' => true, 'new-blocklevel-tags' => 'quote', 'vertical-space' => false, 'wrap' => 0);
 
 	// Tidy
 	// $tidy = new tidy;

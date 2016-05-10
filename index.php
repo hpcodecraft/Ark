@@ -9,6 +9,8 @@ require_once( ASAPH_PATH.'lib/asaph.class.php' );
 
 header( 'Content-type: text/html; charset=utf-8' );
 
+$collections = array();
+
 // Is mod_rewrite enabled? (see .htaccess)
 if( isset($_GET['rw']) ) {
 	define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath );
@@ -30,16 +32,22 @@ else if( !empty($params[0]) && $params[0] == 'feed' ) {
 }
 // collection
 else if( !empty($params[0]) && $params[0] == 'collection' ) {
-  $page = !empty($params[1]) ? $params[1]-1 : 0;
+  $display_mode = 'collection';
 
-	$asaph = new Asaph( Asaph_Config::$postsPerPage );
-  $collections = $asaph->getFeaturedCollections();
-	$posts = $asaph->getPosts( $page );
+  $asaph = new Asaph( Asaph_Config::$postsPerPage );
+  $collection = $params[1];
+  $collection_name = $asaph->getCollectionName($collection);
+  $page = !empty($params[2]) ? $params[2]-1 : 0;
+
+
+	$posts = $asaph->getPostsOfCollection( $collection, $page );
 	$pages = $asaph->getPages();
 	include( ASAPH_PATH.Asaph_Config::$templates['posts'] );
 }
 // single blog post
 else if( !empty($params[0]) && $params[0] == 'post' ) {
+  $display_mode = 'post';
+
 	$postid = !empty($params[1]) ? $params[1] : 0;
 	$asaph = new Asaph(1);
 	$post = $asaph->getPost( $postid );
@@ -53,6 +61,8 @@ else if( !empty($params[0]) && $params[0] == 'post' ) {
 }
 // blog
 else {
+  $display_mode = 'blog';
+
 	$page = !empty($params[1]) ? $params[1]-1 : 0;
 
 	$asaph = new Asaph( Asaph_Config::$postsPerPage );

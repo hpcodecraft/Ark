@@ -78,6 +78,41 @@ class Asaph {
 		return $posts;
 	}
 
+  public function getPostsOfCollection( $collection, $page = 1 ) {
+		$this->currentPage = abs( intval($page) );
+
+		$nsfw_query = "";
+		if($this->settings['public_page_show_nsfw_content'] == 0) {
+			$nsfw_query = " AND p.nsfw=0 ";
+		}
+
+		$posts = $this->db->query(
+			'SELECT SQL_CALC_FOUND_ROWS
+				UNIX_TIMESTAMP(p.created) as created,
+				p.id, p.type, p.source, p.description, p.image, p.image_url, p.video, p.quote, p.title, p.public, p.nsfw, u.name AS user
+			FROM
+				'.ASAPH_TABLE_POSTS.' p
+			LEFT JOIN '.ASAPH_TABLE_USERS.' u
+				ON u.id = p.userId
+			WHERE p.public=1'.$nsfw_query.'
+      AND p.collection=:1
+			ORDER BY
+				created DESC
+			LIMIT
+				:2, :3',
+      $collection,
+			$this->currentPage * $this->postsPerPage,
+			$this->postsPerPage
+		);
+		$this->totalPosts = $this->db->foundRows();
+
+		foreach( array_keys($posts) as $i ) {
+			$this->processPost( $posts[$i] );
+		}
+
+		return $posts;
+	}
+
 	public function getPost( $id ) {
 		$nsfw_query = "";
 		if($this->settings['public_page_show_nsfw_content'] == 0) {
@@ -138,24 +173,46 @@ class Asaph {
     return $collections;
   }
 
+  public function getCollectionName($collection) {
+    $collection = $this->db->getRow(
+			'SELECT name
+			FROM
+				'.ASAPH_TABLE_COLLECTIONS.'
+			WHERE featured=1'.$nsfw_query.'
+      AND id=:1
+			ORDER BY name ASC',
+      $collection
+		);
+
+    return $collection['name'];
+  }
+
   public function getRandomCollectionCover($collection_id) {
-    $post = $this->db->query(
-      'SELECT UNIX_TIMESTAMP(p.created) as created,
-      p.id FROM '.ASAPH_TABLE_POSTS.' p
-      WHERE p.collection = :1 AND p.image IS NOT NULL
-      ORDER BY RAND() LIMIT 1',
-      $collection_id
+
+    //print_r($collection_id);
+
+    $post = $this->db->getRow(
+    'SELECT UNIX_TIMESTAMP(p.created) as created,
+            p.image FROM '.ASAPH_TABLE_POSTS.' p
+            WHERE p.collection=:1'.$nsfw_query.' AND p.image IS NOT NULL
+            ORDER BY RAND() LIMIT 1',
+            $collection_id
     );
 
-    if($post[0] && $post[0]['id']) {
-      $datePath = date( 'Y/m/', $post[0]['created'] );
-      return $this->queryImage($post[0]['id'], $datePath);
+    // echo       'SELECT UNIX_TIMESTAMP(p.created) as created,
+    //       p.id FROM '.ASAPH_TABLE_POSTS.' p
+    //       WHERE p.collection='.$collection_id.$nsfw_query.' AND p.image IS NOT NULL
+    //       ORDER BY RAND() LIMIT 1';
+
+    if($post && $post['image']) {
+      $datePath = date( 'Y/m/', $post['created'] );
+      return $this->queryImage($post['image'], $datePath);
     }
 
     return false;
   }
 
-	protected function queryImage($image,$datePath)
+	protected function queryImage($image, $datePath)
 	{
 		$query = 'SELECT SQL_CALC_FOUND_ROWS
 				id, image, thumb, width, height
