@@ -139,16 +139,20 @@ class Asaph {
   }
 
   public function getRandomCollectionCover($collection_id) {
-    $cover = $this->db->query(
+    $post = $this->db->query(
       'SELECT UNIX_TIMESTAMP(p.created) as created,
-      p.id, i.thumb FROM '.ASAPH_TABLE_POSTS.' p
-      LEFT JOIN '.ASAPH_TABLE_IMAGES.' i on i.id = p.image
+      p.id FROM '.ASAPH_TABLE_POSTS.' p
       WHERE p.collection = :1 AND p.image IS NOT NULL
       ORDER BY RAND() LIMIT 1',
       $collection_id
     );
 
-    return $cover;
+    if($post[0] && $post[0]['id']) {
+      $datePath = date( 'Y/m/', $post[0]['created'] );
+      return $this->queryImage($post[0]['id'], $datePath);
+    }
+
+    return false;
   }
 
 	protected function queryImage($image,$datePath)

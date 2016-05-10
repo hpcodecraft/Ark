@@ -28,6 +28,16 @@ else if( !empty($params[0]) && $params[0] == 'feed' ) {
 	$posts = $asaph->getPosts( 0 );
 	include( ASAPH_PATH.Asaph_Config::$templates['feed'] );
 }
+// collection
+else if( !empty($params[0]) && $params[0] == 'collection' ) {
+  $page = !empty($params[1]) ? $params[1]-1 : 0;
+
+	$asaph = new Asaph( Asaph_Config::$postsPerPage );
+  $collections = $asaph->getFeaturedCollections();
+	$posts = $asaph->getPosts( $page );
+	$pages = $asaph->getPages();
+	include( ASAPH_PATH.Asaph_Config::$templates['posts'] );
+}
 // single blog post
 else if( !empty($params[0]) && $params[0] == 'post' ) {
 	$postid = !empty($params[1]) ? $params[1] : 0;

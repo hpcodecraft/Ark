@@ -141,11 +141,51 @@ h3 {
 }
 
 .featured-collections .collection {
-  display:  inline-block;
-  width: 125px;
   box-sizing: border-box;
-  padding: 10px;
   border: 1px solid #f0f0f0;
+  display:  inline-block;
+  height: 125px;
+  position: relative;
+  width: 125px;
+}
+
+.featured-collections .collection a {
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.featured-collections .collection .cover {
+  background-position: center;
+  background-size: cover;
+  display: inline-block;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 4em;
+  color: #7ca837;
+  line-height: 100px;
+}
+
+.featured-collections .collection .name {
+  background: rgba(124, 168, 55, 0.85);
+  border-top: 1px solid #f0f0f0;
+  bottom: 0;
+  color: #f0f0f0;
+  cursor: pointer;
+  height: 25px;
+  left: 0;
+  position: absolute;
+  width: 123px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .posts {

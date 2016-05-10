@@ -168,8 +168,15 @@ function renderPagination($pages) {
     <ul class="featured-collections">
       <? foreach ($collections as $c): ?>
         <li class="collection">
-          <!--<pre><?= print_r($asaph->getRandomCollectionCover($c['id'])) ?></pre>-->
-          <a href="<?= Asaph_Config::$absolutePath ?>collection/<?= $c['id'] ?>"><?= $c['name'] ?></a>
+          <a href="<?= Asaph_Config::$absolutePath ?>collection/<?= $c['id'] ?>">
+            <? $cover = $asaph->getRandomCollectionCover($c['id'])['thumb'];
+              if($cover): ?>
+                <div class="cover" style="background-image:url(<?= $cover ?>)"></div>
+            <? else: ?>
+                <div class="cover">?</div>
+            <? endif; ?>
+            <label class="name"><?= $c['name'] ?></label>
+          </a>
         </li>
       <? endforeach; ?>
     </ul>
