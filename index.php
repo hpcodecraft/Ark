@@ -40,7 +40,7 @@ else if( !empty($params[0]) && $params[0] == 'collection' ) {
   $page = !empty($params[2]) ? $params[2]-1 : 0;
 
 
-	$posts = $asaph->getPostsOfCollection( $collection, $page );
+	$posts = $asaph->getPostsOfCollection( $collection );
 	$pages = $asaph->getPages();
 	include( ASAPH_PATH.Asaph_Config::$templates['posts'] );
 }
