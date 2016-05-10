@@ -1,18 +1,22 @@
 <?php
-//dl("tidy.so");
 ob_start();
 
-function renderPagination($mode, $pages) {
-
-  if($mode !== 'blog') return '';
+function renderPagination($mode, $pages, $collection) {
+  if($mode === 'post') return '';
 
 	$html = '';
+
+  $collection_fragment = '';
+  if($mode === 'collection') $collection_fragment = 'collection/'.$collection.'/';
 
 	if(isset($pages)) {
 		$html.= '<div class="navigation">';
 
+    $page_fragment = 'page/'.$pages['prev'];
+    if($pages['current'] == 2) $page_fragment = '';
+
 		if( $pages['prev']) {
-			$html.= '<a href="'.ASAPH_LINK_PREFIX.'page/'.$pages['prev'].'" class="pageleft">«</a>';
+			$html.= '<a href="'.ASAPH_LINK_PREFIX.$collection_fragment.$page_fragment.'" class="pageleft">«</a>';
 		}
 		else {
 			$html.= '<a href="" style="visibility:hidden" class="pageleft">«</a>';
@@ -21,11 +25,14 @@ function renderPagination($mode, $pages) {
 		$html.= '<div class="all-pages">';
 
 		for($i=1; $i<=$pages['total']; $i++) {
+      $page_fragment = 'page/'.$i;
+      if($i == 1) $page_fragment = '';
+
 			if($i == $pages['current']) {
-				$html.= '<a class="active" href="'.ASAPH_LINK_PREFIX.'page/'.$i.'">'.$i.'</a> ';
+				$html.= '<a class="active" href="'.ASAPH_LINK_PREFIX.$collection_fragment.$page_fragment.'">'.$i.'</a> ';
 			}
 			else {
-				$html.= '<a href="'.ASAPH_LINK_PREFIX.'page/'.$i.'">'.$i.'</a> ';
+				$html.= '<a href="'.ASAPH_LINK_PREFIX.$collection_fragment.$page_fragment.'">'.$i.'</a> ';
 			}
 		}
 
@@ -33,7 +40,7 @@ function renderPagination($mode, $pages) {
 		<a href="#" class="jump-to-page">jump</a>';
 
 		if( $pages['next']) {
-				$html.= '<a href="'.ASAPH_LINK_PREFIX.'page/'.$pages['next'].'" class="pageright">»</a>';
+				$html.= '<a href="'.ASAPH_LINK_PREFIX.$collection_fragment.'page/'.$pages['next'].'" class="pageright">»</a>';
 		}
 		else {
 				$html.= '<a href="" style="visibility:hidden" class="pageright">»</a>';
@@ -190,7 +197,7 @@ function renderPagination($mode, $pages) {
       <h2>Collection "<?= $collection_name ?>"</h2>
     <? endif; ?>
 
-		<?=renderPagination($display_mode, $pages)?>
+		<?=renderPagination($display_mode, $pages, $collection)?>
 
 		<ul class="posts">
 			<?php foreach( $posts as $p ): ?>
@@ -249,7 +256,7 @@ function renderPagination($mode, $pages) {
 
 		</ul>
 
-		<?=renderPagination($display_mode, $pages)?>
+		<?=renderPagination($display_mode, $pages, $collection)?>
 
 		<div class="imprint">
 			This micro blog is powered by <a href="https://github.com/hpcodecraft/Ark">Ark</a>
@@ -261,19 +268,5 @@ function renderPagination($mode, $pages) {
 </html>
 <?php
 	$html = ob_get_clean();
-	/*$x = new DOMDocument;
-	$x->loadHTML($html);
-	$clean = $x->saveXML();
-	//echo $html;
-	echo $clean;*/
-	// Specify configuration
-	//$config = array('indent' => true, 'new-blocklevel-tags' => 'quote', 'vertical-space' => false, 'wrap' => 0);
-
-	// Tidy
-	// $tidy = new tidy;
-	// $tidy->parseString($html, $config, 'utf8');
-	// $tidy->cleanRepair();
-
-	// Output
 	echo $html;
 ?>

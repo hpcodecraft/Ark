@@ -78,7 +78,9 @@ class Asaph {
 		return $posts;
 	}
 
-  public function getPostsOfCollection( $collection ) {
+  public function getPostsOfCollection( $collection, $page ) {
+		$this->currentPage = abs( intval($page) );
+
 		$nsfw_query = "";
 		if($this->settings['public_page_show_nsfw_content'] == 0) {
 			$nsfw_query = " AND p.nsfw=0 ";
@@ -95,9 +97,14 @@ class Asaph {
 			WHERE p.public=1'.$nsfw_query.'
       AND p.collection=:1
 			ORDER BY
-				created DESC',
-      $collection
+				created DESC
+			LIMIT
+				:2, :3',
+      $collection,
+			$this->currentPage * $this->postsPerPage,
+			$this->postsPerPage
 		);
+		$this->totalPosts = $this->db->foundRows();
 
 		foreach( array_keys($posts) as $i ) {
 			$this->processPost( $posts[$i] );
@@ -140,6 +147,7 @@ class Asaph {
 			'prev' => false,
 			'next' => false,
 		);
+
 		if( $this->totalPosts > 0 ) {
 			$pages['current'] = $this->currentPage + 1;
 			$pages['total'] = ceil($this->totalPosts / $this->postsPerPage );

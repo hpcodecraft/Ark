@@ -37,10 +37,9 @@ else if( !empty($params[0]) && $params[0] == 'collection' ) {
   $asaph = new Asaph( Asaph_Config::$postsPerPage );
   $collection = $params[1];
   $collection_name = $asaph->getCollectionName($collection);
-  $page = !empty($params[2]) ? $params[2]-1 : 0;
+  $page = !empty($params[3]) ? $params[3]-1 : 0;
 
-
-	$posts = $asaph->getPostsOfCollection( $collection );
+	$posts = $asaph->getPostsOfCollection( $collection, $page );
 	$pages = $asaph->getPages();
 	include( ASAPH_PATH.Asaph_Config::$templates['posts'] );
 }
