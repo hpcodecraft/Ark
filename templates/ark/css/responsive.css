@@ -127,7 +127,7 @@ h2 {
 h3 {
   font-size: 1em;
   max-width: 500px;
-  margin: 1em auto .5em auto;
+  margin: 0 auto .5em auto;
 }
 
 .featured-collections {
@@ -235,6 +235,7 @@ h3 {
 }
 
 .post .image-container {
+  margin-bottom: 1em;
   width: 100%;
   text-align: center;
 }
