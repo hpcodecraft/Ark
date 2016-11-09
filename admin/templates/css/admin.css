@@ -317,15 +317,15 @@ select {
 }
 
 .post .post-image em {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    overflow: hidden;
-    display: block;
-    width: 100%;
-    font-size: .9em;
-    text-shadow: 0 1px #000;
-    z-index: 0;
+  position: relative;
+  top: 0;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  font-size: .9em;
+  text-shadow: 0 1px #000;
+  z-index: 0;
+  height: 105px;
 }
 
 .post .url-link {

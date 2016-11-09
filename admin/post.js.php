@@ -311,14 +311,14 @@ function ArkBookmarklet( postURL, baseURL ) {
       imgSquare.appendChild(this);
       imgBox.appendChild(imgSquare);
 
-      var imgLabel = document.createElement('label');
-      imgLabel.className = 'image-label';
+      //var imgLabel = document.createElement('label');
+      //imgLabel.className = 'image-label';
 
-      var title = img.getAttribute('alt') || img.getAttribute('title') || '';
-      imgLabel.appendChild(document.createTextNode(title));
+      //var title = img.getAttribute('title') || img.getAttribute('alt') || '';
+      //imgLabel.appendChild(document.createTextNode(title));
 
-      imgBox.appendChild(imgLabel);
-      imgBox.onclick = imageClickHandler(this, title);
+      //imgBox.appendChild(imgLabel);
+      imgBox.onclick = imageClickHandler(this, '');
 
       that.images.appendChild(imgBox);
     };
