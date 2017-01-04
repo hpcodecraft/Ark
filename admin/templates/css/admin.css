@@ -980,3 +980,37 @@ a.bookmarklet {
 	float: left;
 	text-decoration: underline;
 }
+
+
+
+/*                Responsiveness                   */
+@media only screen and (max-width: 700px) {
+  .collections {
+    display: none;
+  }
+
+  #filters {
+    height: 60px;
+    left: 0;
+  }
+
+  #filters button {
+    width: 25%;
+  }
+
+  #search {
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+  }
+
+  #content {
+    bottom: 0;
+    left: 10px;
+    top: 95px;
+  }
+
+  footer {
+    display: none;
+  }
+}

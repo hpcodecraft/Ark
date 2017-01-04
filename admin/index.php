@@ -1,9 +1,8 @@
 <?php
 define( 'ASAPH_PATH', '../' );
-require_once( ASAPH_PATH.'lib/asaph_admin.class.php' );
-
 header( 'Content-type: text/html; charset=utf-8' );
 
+require_once( ASAPH_PATH.'lib/asaph_admin.class.php' );
 $asaphAdmin = new Asaph_Admin( Asaph_Config::$adminPostsPerPage );
 
 if( isset($_POST['login']) ) {

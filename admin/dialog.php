@@ -68,7 +68,13 @@ if(isset($_POST['action'])) {
       $nsfw_content_website = 0;
       if(isset($_POST['public_page_show_nsfw_content']) && $_POST['public_page_show_nsfw_content'] == 'on') $nsfw_content_website = 1;
 
-      $status = $asaphAdmin->updateSettings($nsfw_content_admin, $nsfw_content_website);
+      $site_title = 'Ark';
+      if(strlen($_POST['site_title']) > 0) $site_title = $_POST['site_title'];
+
+      $site_slogan = '';
+      if(strlen($_POST['site_slogan']) > 0) $site_slogan = $_POST['site_slogan'];
+
+      $status = $asaphAdmin->updateSettings($nsfw_content_admin, $nsfw_content_website, $site_title, $site_slogan);
       break;
   }
 }

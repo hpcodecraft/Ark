@@ -5,6 +5,18 @@
     <ul>
       <li>
         <label>
+          Site title
+          <input type="text" name="site_title" value="<?= $settings['site_title'] ?>" />
+        </label>
+      </li>
+      <li>
+        <label>
+          Site slogan
+          <input type="text" name="site_slogan" value="<?= $settings['site_slogan'] ?>" />
+        </label>
+      </li>
+      <li>
+        <label>
           Show NSFW content in admin
           <input type="checkbox" name="admin_show_nsfw_content" <?=$settings['admin_show_nsfw_content'] == 1 ? ' checked' : '' ?> />
         </label>

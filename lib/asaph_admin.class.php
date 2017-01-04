@@ -15,12 +15,18 @@ class Asaph_Admin extends Asaph {
 		$this->userId = $this->getUserId();
 	}
 
-	public function updateSettings($nsfw_content_admin, $nsfw_content_website) {
+	public function updateSettings($nsfw_content_admin, $nsfw_content_website, $site_title, $site_slogan) {
 		$query = "UPDATE ".ASAPH_TABLE_SETTINGS." SET setting_value='".$nsfw_content_admin."' WHERE setting_key='admin_show_nsfw_content'";
 		$this->db->query($query);
 
 		$query = "UPDATE ".ASAPH_TABLE_SETTINGS." SET setting_value='".$nsfw_content_website."' WHERE setting_key='public_page_show_nsfw_content'";
 		$this->db->query($query);
+
+    $query = "UPDATE ".ASAPH_TABLE_SETTINGS." SET setting_value='".$site_title."' WHERE setting_key='site_title'";
+		$this->db->query($query);
+
+    $query = "UPDATE ".ASAPH_TABLE_SETTINGS." SET setting_value='".$site_slogan."' WHERE setting_key='site_slogan'";
+    $this->db->query($query);
 
 		return true;
 	}

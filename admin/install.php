@@ -78,11 +78,11 @@ $createTablesSQL = array(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;',
 'CREATE TABLE `asaph_settings` (
   `setting_key` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `setting_value` varchar(128) COLLATE utf8_unicode_ci NOT NULL
+  `setting_value` varchar(512) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;',
 'ALTER TABLE `asaph_settings`
  ADD UNIQUE KEY `setting_key` (`setting_key`);',
-'INSERT INTO `asaph_settings` (`setting_key`, `setting_value`) VALUES (\'admin_show_nsfw_content\', \'1\'), (\'public_page_show_nsfw_content\', \'1\');',
+'INSERT INTO `asaph_settings` (`setting_key`, `setting_value`) VALUES (\'admin_show_nsfw_content\', \'1\'), (\'public_page_show_nsfw_content\', \'1\'), (\'site_title\', \'Ark\'), (\'site_slogan\', \'\');',
 );
 
 $requirements = array(

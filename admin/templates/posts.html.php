@@ -1,6 +1,6 @@
 <?php include(ASAPH_PATH.'admin/templates/head.html.php'); ?>
 <?php include(ASAPH_PATH.'admin/templates/partial-collections.html.php'); ?>
-<?php include(ASAPH_PATH.'admin/templates/partial-inspector.html.php'); ?>
+<?php // include(ASAPH_PATH.'admin/templates/partial-inspector.html.php'); ?>
 <?php include(ASAPH_PATH.'admin/templates/partial-dialog.html.php'); ?>
 
 <div id="filters">
