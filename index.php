@@ -22,6 +22,8 @@
   $collections = array();
   $settings = $asaph->getSettings();
 
+  include('lib/functions.php');
+
   if(!empty($params[0])) {
     switch($params[0]) {
       case 'about':
@@ -57,13 +59,24 @@
       	$posts = array($post);
       	include(ASAPH_PATH.Asaph_Config::$templates['posts']);
         break;
+
+      default:
+        $display_mode = 'blog';
+        $page = !empty($params[1]) ? $params[1]-1 : 0;
+        $collections = $asaph->getFeaturedCollections();
+        $posts = $asaph->getPosts( $page );
+        $pages = $asaph->getPages();
+        include(ASAPH_PATH.Asaph_Config::$templates['posts']);
+        break;
+
+
     }
   }
   else {
+    // front page
     $display_mode = 'blog';
-    $page = !empty($params[1]) ? $params[1]-1 : 0;
     $collections = $asaph->getFeaturedCollections();
-    $posts = $asaph->getPosts( $page );
+    $posts = $asaph->getPosts(0);
     $pages = $asaph->getPages();
     include(ASAPH_PATH.Asaph_Config::$templates['posts']);
   }

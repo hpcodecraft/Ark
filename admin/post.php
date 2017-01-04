@@ -55,7 +55,7 @@ else {
 				break;
 
       case 'custom-link':
-				$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'], $_POST['description'], $_public, $_POST['collection'], "null", $_POST['tags'], $_nsfw ); // TODO "null" as string sucks, fix that later
+				$status = $asaphPost->postUrl( $_POST['url'], $_POST['title'], $_POST['description'], $_public, $_POST['collection'], null, $_POST['tags'], $_nsfw );
 				break;
 
 			case 'image':

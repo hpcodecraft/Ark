@@ -5,7 +5,13 @@
     <?php if($post['type'] == 'url'): ?>
     <input type="hidden" name="url" value="<?= $post['url'] ?>" />
 
-    <div class="post-image" style="background-image:url(<?= $post['image'] ?>);"></div>
+    <div class="post-image" style="background-image:url(<?= $post['image'] ?>);">
+      <button type="button" class="remove-preview">
+        remove preview?
+        <div id="remove-preview-setting" class="safe">no</div>
+        <input type="hidden" name="remove-preview" value="0" id="remove-preview-input" />
+      </button>
+    </div>
     <ul class="post-form">
       <li>
         <input type="text" placeholder="Title" class="long" name="title" value="<?= $post['title'] ?>" />

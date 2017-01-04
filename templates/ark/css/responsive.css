@@ -230,6 +230,7 @@ h3 {
 }
 
 .post .image-container img {
+  min-width: 100%;
   max-width: 100%;
 }
 

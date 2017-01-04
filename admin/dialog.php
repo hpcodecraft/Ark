@@ -57,6 +57,10 @@ if(isset($_POST['action'])) {
         if(isset($_POST['public']) && $_POST['public'] == 'on') $public = 1;
         if(isset($_POST['nsfw']) && $_POST['nsfw'] == 'on') $nsfw = 1;
         $status = $asaphAdmin->updatePost( $_POST['id'], $_POST['title'], $_POST['description'], $public, $_POST['collection'], $_POST['tags'], $nsfw);
+
+        if(isset($_POST['remove-preview']) && $_POST['remove-preview'] == 1) {
+          $asaphAdmin->deletePreviewImage($_POST['id']);
+        }
       }
       break;
 
@@ -131,6 +135,20 @@ if(isset($_GET['dialog'])) {
          'minChars' : 0,
          'maxChars' : 0,
          'placeholderColor' : '#666666'
+      });
+
+      // Edit post: remove preview button
+      $('.remove-preview').on('click', function() {
+        var val = +$('#remove-preview-input').val();
+
+        if(val == 0) val = 1;
+        else if(val == 1) val = 0;
+
+        var str = val == 0 ? 'no' : 'yes';
+        var className = val == 0 ? 'safe' : 'danger';
+
+        $('#remove-preview-setting').removeClass().addClass(className).html(str);
+        $('#remove-preview-input').val(val);
       });
     });
   </script>

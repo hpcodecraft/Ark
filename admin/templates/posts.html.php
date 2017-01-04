@@ -34,7 +34,7 @@
 		if($p['type'] == 'url') {
 			$urlLink = '<a class="url-link" href="'.$p['source'].'" target="_blank">';
 
-			if($p['image_url'] != 'null') $urlLink.= '<img src="'.$p['image_url'].'" />';
+			if($p['image_url'] != null) $urlLink.= '<img src="'.$p['image_url'].'" />';
 			else $urlLink.= '<h4>WEBSITE</h4>';
 
 			$urlLink.= '</a>';

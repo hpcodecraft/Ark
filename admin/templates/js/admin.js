@@ -42,7 +42,6 @@ $(function() {
   // Main menu: Settings button
   $(document).on('click', '.settings', showDialog.bind(this, 'settings'));
 
-
   /***********************************************************************
    * Collections
    ***********************************************************************/
@@ -250,4 +249,5 @@ $(function() {
 
     $('#search-results').addClass('show');
   }
+
 });

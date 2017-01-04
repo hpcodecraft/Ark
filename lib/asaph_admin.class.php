@@ -448,6 +448,11 @@ class Asaph_Admin extends Asaph {
 		return true;
 	}
 
+  public function deletePreviewImage($id) {
+    $this->db->query( 'UPDATE '.ASAPH_TABLE_POSTS.' SET image_url=NULL WHERE id = :1', $id);
+    return true;
+  }
+
 	public function getUser( $id ) {
 		$user = $this->db->getRow( 'SELECT id, name FROM '.ASAPH_TABLE_USERS.' WHERE id = :1', $id );
 		$user['name'] = htmlspecialchars( $user['name'] );

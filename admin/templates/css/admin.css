@@ -674,6 +674,18 @@ div.install div.failed h3 {
     border-radius: 3px;
 }
 
+.ark-dialog-content .post-image .remove-preview {
+  background: rgba(0, 0, 0, .5);
+  color: #fff;
+  display: none;
+  height: 100%;
+  width: 100%;
+}
+
+.ark-dialog-content .post-image:hover .remove-preview {
+  display: block;
+}
+
 .ark-dialog-content .post-form {
     width: 305px;
     float: left;
@@ -833,6 +845,10 @@ a.bookmarklet {
 
 .danger {
   color: #f7204e;
+}
+
+.safe {
+  color: #7ca935;
 }
 
 .scroll-message {
