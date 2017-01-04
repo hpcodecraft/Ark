@@ -1,74 +1,70 @@
 <?php
-error_reporting(E_ERROR);
+  error_reporting(E_ERROR);
 
-ini_set('display_errors', 'On');
+  ini_set('display_errors', 'On');
 
-date_default_timezone_set("Europe/Berlin");
-define( 'ASAPH_PATH', '' );
-require_once( ASAPH_PATH.'lib/asaph.class.php' );
+  date_default_timezone_set("Europe/Berlin");
+  define( 'ASAPH_PATH', '' );
+  require_once( ASAPH_PATH.'lib/asaph.class.php' );
 
-header( 'Content-type: text/html; charset=utf-8' );
+  header( 'Content-type: text/html; charset=utf-8' );
 
-$collections = array();
-
-// Is mod_rewrite enabled? (see .htaccess)
-if( isset($_GET['rw']) ) {
-	define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath );
-	$params = explode( '/', $_GET['rw'] );
-} else {
-	define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath.'?' );
-	$params = empty($_GET) ? array() : explode( '/', key($_GET) );
-}
-
-// about page
-if( !empty($params[0]) && $params[0] == 'about' ) {
-	include( ASAPH_PATH.Asaph_Config::$templates['about'] );
-}
-// feed
-else if( !empty($params[0]) && $params[0] == 'feed' ) {
-	$asaph = new Asaph( Asaph_Config::$postsPerPage );
-	$posts = $asaph->getPosts( 0 );
-	include( ASAPH_PATH.Asaph_Config::$templates['feed'] );
-}
-// collection
-else if( !empty($params[0]) && $params[0] == 'collection' ) {
-  $display_mode = 'collection';
+  // Is mod_rewrite enabled? (see .htaccess)
+  if( isset($_GET['rw']) ) {
+  	define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath );
+  	$params = explode( '/', $_GET['rw'] );
+  } else {
+  	define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath.'?' );
+  	$params = empty($_GET) ? array() : explode( '/', key($_GET) );
+  }
 
   $asaph = new Asaph( Asaph_Config::$postsPerPage );
-  $collection = $params[1];
-  $collection_name = $asaph->getCollectionName($collection);
-  $page = !empty($params[3]) ? $params[3]-1 : 0;
+  $collections = array();
+  $settings = $asaph->getSettings();
 
-	$posts = $asaph->getPostsOfCollection( $collection, $page );
-	$pages = $asaph->getPages();
-	include( ASAPH_PATH.Asaph_Config::$templates['posts'] );
-}
-// single blog post
-else if( !empty($params[0]) && $params[0] == 'post' ) {
-  $display_mode = 'post';
+  if(!empty($params[0])) {
+    switch($params[0]) {
+      case 'about':
+        include(ASAPH_PATH.Asaph_Config::$templates['about']);
+        break;
 
-	$postid = !empty($params[1]) ? $params[1] : 0;
-	$asaph = new Asaph(1);
-	$post = $asaph->getPost( $postid );
+      case 'feed':
+        $posts = $asaph->getPosts(0);
+        include(ASAPH_PATH.Asaph_Config::$templates['feed']);
+        break;
 
-	if(empty($post)) {
-		$post = array("description" => "<h3>404 Post not found</h3>
-		<p>Oops, something went wrong here. <a href='".Asaph_Config::$absolutePath."'>Beam me home, Scotty!</a></p>","created" => time(), "user" => "Ark");
-	}
-	$posts = array($post);
-	include( ASAPH_PATH.Asaph_Config::$templates['posts'] );
-}
-// blog
-else {
-  $display_mode = 'blog';
+      case 'collection':
+        $display_mode = 'collection';
+        $collection = $params[1];
+        $collection_name = $asaph->getCollectionName($collection);
+        $page = !empty($params[3]) ? $params[3]-1 : 0;
 
-	$page = !empty($params[1]) ? $params[1]-1 : 0;
+      	$posts = $asaph->getPostsOfCollection($collection, $page);
+      	$pages = $asaph->getPages();
+      	include(ASAPH_PATH.Asaph_Config::$templates['posts']);
+        break;
 
-	$asaph = new Asaph( Asaph_Config::$postsPerPage );
-  $collections = $asaph->getFeaturedCollections();
-	$posts = $asaph->getPosts( $page );
-	$pages = $asaph->getPages();
-	include( ASAPH_PATH.Asaph_Config::$templates['posts'] );
-}
+      case 'post':
+        $display_mode = 'post';
+      	$postid = !empty($params[1]) ? $params[1] : 0;
+      	$asaph = new Asaph(1);
+      	$post = $asaph->getPost($postid);
 
+      	if(empty($post)) {
+      		$post = array("description" => "<h3>404 Post not found</h3>
+      		<p>Oops, something went wrong here. <a href='".Asaph_Config::$absolutePath."'>Beam me home, Scotty!</a></p>","created" => time(), "user" => "Ark");
+      	}
+      	$posts = array($post);
+      	include(ASAPH_PATH.Asaph_Config::$templates['posts']);
+        break;
+    }
+  }
+  else {
+    $display_mode = 'blog';
+    $page = !empty($params[1]) ? $params[1]-1 : 0;
+    $collections = $asaph->getFeaturedCollections();
+    $posts = $asaph->getPosts( $page );
+    $pages = $asaph->getPages();
+    include(ASAPH_PATH.Asaph_Config::$templates['posts']);
+  }
 ?>

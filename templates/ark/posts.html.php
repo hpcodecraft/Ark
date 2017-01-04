@@ -53,14 +53,10 @@ function renderPagination($mode, $pages, $collection) {
 }
 ?>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js"> <!--<![endif]-->
+<html>
 	<head>
 		<meta charset="utf-8">
-		<title>Ark</title>
+		<title><?= $settings['site_title'] ?></title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<?php echo ASAPH_LINK_PREFIX; ?>feed" />
@@ -71,7 +67,7 @@ function renderPagination($mode, $pages, $collection) {
 		<link rel="stylesheet" href="<?php echo Asaph_Config::$absolutePath; ?>templates/ark/css/responsive.css">
     <link rel="shortcut icon" href="<?php echo Asaph_Config::$absolutePath; ?>templates/ark/img/favicon.ico" />
 		<script src="<?php echo Asaph_Config::$absolutePath;?>templates/ark/js/vendor/modernizr-2.6.2.min.js"></script>
-		<meta property="og:site_name" content="ark.hpcodecraft.me"/>
+		<meta property="og:site_name" content="<?= $settings['site_title'] ?>"/>
 		<?php if(!isset($pages)):
 			$p = $posts[0];
 
@@ -165,12 +161,15 @@ function renderPagination($mode, $pages, $collection) {
 		<?php endif; ?>
 	</head>
 	<body lang="en">
-		<!--[if lt IE 7]>
-			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		<![endif]-->
-
 		<div class="header">
-			<h1 class="logo"><a href="<?php echo ASAPH_LINK_PREFIX ?>">Ark</a></h1>
+			<h1 class="logo">
+        <a href="<?php echo ASAPH_LINK_PREFIX ?>">
+			    <?= $settings['site_title'] ?>
+			  </a>
+      </h1>
+      <div class="slogan">
+        <?= $settings['site_slogan'] ?>
+      </div>
 		</div>
 
     <? if(count($collections) > 0): ?>

@@ -30,7 +30,7 @@ class Asaph {
 			Asaph_Config::$db['password']
 		);
 
-		$this->getSettings();
+		//$this->getSettings();
 	}
 
 	public function getSettings() {
@@ -38,7 +38,7 @@ class Asaph {
 		$settings = array();
 
 		foreach($raw_settings as $rs) {
-			$settings[$rs['setting_key']] = (int)$rs['setting_value'];
+			$settings[$rs['setting_key']] = $rs['setting_value'];
 		}
 
 		$this->settings = $settings;
