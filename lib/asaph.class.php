@@ -30,7 +30,7 @@ class Asaph {
 			Asaph_Config::$db['password']
 		);
 
-		//$this->getSettings();
+		$this->getSettings();
 	}
 
 	public function getSettings() {
