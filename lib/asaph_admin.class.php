@@ -358,7 +358,7 @@ class Asaph_Admin extends Asaph {
 				array('tag' => $nt)
 			);
 
-			$new_id = mysql_insert_id();
+			$new_id = mysqli_insert_id();
 			array_push($all_tags, array('id' => $new_id, 'tag' => $nt));
 		}
 

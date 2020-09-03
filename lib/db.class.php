@@ -1,9 +1,10 @@
 <?php
 
-error_reporting('E_NONE');
+error_reporting('E_ALL');
 
 class DB {
 	public $sql;
+	public $params;
 	public $numQueries = 0;
 
 	private $link = null;
@@ -20,11 +21,9 @@ class DB {
 
 
 	private function connect() {
-		$this->link = @mysql_connect( $this->host, $this->user, $this->pass )
+		$this->link = @mysqli_connect( $this->host, $this->user, $this->pass, $this->db )
 			or die( "Couldn't establish link to database-server: ".$this->host );
-		mysql_select_db( $this->db )
-			or die( "Couldn't select Database: ".$this->db );
-		mysql_query( 'SET NAMES utf8', $this->link );
+		mysqli_query( $this->link, 'SET NAMES utf8' );
 	}
 
 
@@ -35,17 +34,17 @@ class DB {
 
 
 	public function numRows() {
-		return mysql_num_rows( $this->result );
+		return mysqli_num_rows( $this->result );
 	}
 
 
 	public function affectedRows() {
-		return mysql_affected_rows( $this->result );
+		return mysqli_affected_rows( $this->result );
 	}
 
 
 	public function insertId() {
-		return mysql_insert_id( $this->link );
+		return mysqli_insert_id( $this->link );
 	}
 
 
@@ -58,25 +57,32 @@ class DB {
 			$params = array_slice( func_get_args(), 1 );
 		}
 
-		if( !empty( $params ) ) {
-			$q = preg_replace('/:(\d+)/e', '$this->quote($params[$1 - 1])', $q );
-		}
+		$this->params = $params;
 
-		// error_log($q);
+
+		if( !empty( $params ) ) {
+			$q = preg_replace_callback(
+				'/:(\d+)/',
+				function ($matches) {
+					return $this->quote($this->params[$matches[1] - 1]);
+				},
+				$q
+			);
+		}
 
 		$this->numQueries++;
 		$this->sql = $q;
-		$this->result = mysql_query( $q, $this->link );
+		$this->result = mysqli_query( $this->link, $q );
 
 		if( !$this->result ) {
 			return false;
 		}
-		else if( !is_resource( $this->result ) ) {
-			return true;
-		}
+		// else if( !is_resource( $this->result ) ) {
+		// 	return true;
+		// }
 
 		$rset = array();
-		while ( $row = mysql_fetch_assoc( $this->result ) ) {
+		while ( $row = mysqli_fetch_assoc( $this->result ) ) {
 			$rset[] = $row;
 		}
 		return $rset;
@@ -107,7 +113,7 @@ class DB {
 
 
 	public function getError() {
-		if( $e = mysql_error( $this->link ) ) {
+		if( $e = mysqli_error( $this->link ) ) {
 			return "MySQL reports: '$e' on query\n".$this->sql;
 		}
 		return false;
@@ -128,7 +134,7 @@ class DB {
 			return $s;
 		}
 		else {
-			return "'".mysql_real_escape_string( $s )."'";
+			return "'".mysqli_real_escape_string( $this->link, $s )."'";
 		}
 	}
 

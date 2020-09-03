@@ -96,14 +96,10 @@ $requirements = array(
 	'Database' => array(
 		'Connection established' => array(
 			'message' => 'Check your database settings in <code>lib/asaph_config.class.php</code>',
-			'value' => @mysql_connect( Asaph_Config::$db['host'], Asaph_Config::$db['user'], Asaph_Config::$db['password'] )
+			'value' => @mysqli_connect( Asaph_Config::$db['host'], Asaph_Config::$db['user'], Asaph_Config::$db['password'], Asaph_Config::$db['database'] )
 		),
 		'MySQL Version >= 4.0' => array(
-			'value' => ( version_compare(@mysql_get_server_info(),'4.0') != -1 )
-		),
-		'Database exists' => array(
-			'message' => 'The database Asaph will be installed in must already exist. The installer will not attempt to create it.',
-			'value' => @mysql_select_db( Asaph_Config::$db['database'] )
+			'value' => ( version_compare(@mysqli_get_server_info(),'4.0') != -1 )
 		)
 	),
 
@@ -161,7 +157,7 @@ $recommendations = array(
 				'Though there is no known problem with Asaph and the <code>register_globals</code> option, it is '
 				.'generally a good idea to turn it off.',
 			'value' => !iniEnabled( 'register_globals' )
-		 ),
+		),
 		'Memory limit >= 4M' => array(
 			'message' =>
 				'If your <code>memory_limit</code> setting is too low, you might experience problems when posting '

@@ -60,9 +60,7 @@ define( 'ASAPH_POST_PHP',   ASAPH_BASE_URL.'admin/post.php' );
 define( 'ASAPH_POST_JS',    ASAPH_BASE_URL.'admin/post.js.php' );
 define( 'ASAPH_POST_CSS',   ASAPH_BASE_URL.'admin/templates/css/post.css' );
 
-if( function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() ) {
-  $_GET = array_map( 'stripslashes', $_GET );
-  $_POST = array_map( 'stripslashes', $_POST );
-}
+$_GET = array_map( 'stripslashes', $_GET );
+$_POST = array_map( 'stripslashes', $_POST );
 
 ?>

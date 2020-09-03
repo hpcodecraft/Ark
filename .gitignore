@@ -2,4 +2,3 @@ config/*
 !config/example.com.php
 data
 resources
-.htaccess.dev

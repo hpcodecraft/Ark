@@ -1,5 +1,5 @@
 <?php
-  error_reporting(E_ERROR);
+  error_reporting(E_ALL);
 
   ini_set('display_errors', 'On');
 
@@ -11,11 +11,11 @@
 
   // Is mod_rewrite enabled? (see .htaccess)
   if( isset($_GET['rw']) ) {
-  	define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath );
-  	$params = explode( '/', $_GET['rw'] );
+    define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath );
+    $params = explode( '/', $_GET['rw'] );
   } else {
-  	define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath.'?' );
-  	$params = empty($_GET) ? array() : explode( '/', key($_GET) );
+    define( 'ASAPH_LINK_PREFIX', Asaph_Config::$absolutePath.'?' );
+    $params = empty($_GET) ? array() : explode( '/', key($_GET) );
   }
 
   $asaph = new Asaph( Asaph_Config::$postsPerPage );
@@ -41,23 +41,23 @@
         $collection_name = $asaph->getCollectionName($collection);
         $page = !empty($params[3]) ? $params[3]-1 : 0;
 
-      	$posts = $asaph->getPostsOfCollection($collection, $page);
-      	$pages = $asaph->getPages();
-      	include(ASAPH_PATH.Asaph_Config::$templates['posts']);
+        $posts = $asaph->getPostsOfCollection($collection, $page);
+        $pages = $asaph->getPages();
+        include(ASAPH_PATH.Asaph_Config::$templates['posts']);
         break;
 
       case 'post':
         $display_mode = 'post';
-      	$postid = !empty($params[1]) ? $params[1] : 0;
-      	$asaph = new Asaph(1);
-      	$post = $asaph->getPost($postid);
+        $postid = !empty($params[1]) ? $params[1] : 0;
+        $asaph = new Asaph(1);
+        $post = $asaph->getPost($postid);
 
-      	if(empty($post)) {
-      		$post = array("description" => "<h3>404 Post not found</h3>
-      		<p>Oops, something went wrong here. <a href='".Asaph_Config::$absolutePath."'>Beam me home, Scotty!</a></p>","created" => time(), "user" => "Ark");
-      	}
-      	$posts = array($post);
-      	include(ASAPH_PATH.Asaph_Config::$templates['posts']);
+        if(empty($post)) {
+          $post = array("description" => "<h3>404 Post not found</h3>
+          <p>Oops, something went wrong here. <a href='".Asaph_Config::$absolutePath."'>Beam me home, Scotty!</a></p>","created" => time(), "user" => "Ark");
+        }
+        $posts = array($post);
+        include(ASAPH_PATH.Asaph_Config::$templates['posts']);
         break;
 
       default:
@@ -68,8 +68,6 @@
         $pages = $asaph->getPages();
         include(ASAPH_PATH.Asaph_Config::$templates['posts']);
         break;
-
-
     }
   }
   else {

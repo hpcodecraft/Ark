@@ -32,7 +32,7 @@ class Asaph_Post extends Asaph_Admin {
 			'image_url' => $image,
 		));
 
-		$id = mysql_insert_id();
+		$id = mysqli_insert_id();
 		$this->saveTags($id, $tag_string);
 
 		return true;
@@ -117,7 +117,7 @@ class Asaph_Post extends Asaph_Admin {
 			'image' => $this->db->insertId()
 		));
 
-		$id = mysql_insert_id();
+		$id = mysqli_insert_id();
 		$this->saveTags($id, $tag_string);
 
 		return true;
@@ -200,7 +200,7 @@ class Asaph_Post extends Asaph_Admin {
 			'image' => $this->db->insertId()
 		));
 
-		$id = mysql_insert_id();
+		$id = mysqli_insert_id();
 		$this->saveTags($id, $tag_string);
 
 		return true;
@@ -291,7 +291,7 @@ class Asaph_Post extends Asaph_Admin {
 			'quote' => $this->db->insertId()
 		));
 
-		$id = mysql_insert_id();
+		$id = mysqli_insert_id();
 		$this->saveTags($id, $tag_string);
 
 		return true;
@@ -334,7 +334,7 @@ class Asaph_Post extends Asaph_Admin {
 				array('tag' => $nt)
 			);
 
-			$new_id = mysql_insert_id();
+			$new_id = mysqli_insert_id();
 			array_push($all_tags, array('id' => $new_id, 'tag' => $nt));
 		}
 
